@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MetaForge – Free Meta Tag Generator | SEO & Open Graph Tags</title>
+  <meta name="description" content="Generate perfect SEO meta tags, Open Graph tags, Twitter Cards, and more in seconds. Free, fast, and no sign-up required." />
+  <meta name="keywords" content="meta tag generator, SEO meta tags, open graph generator, twitter card generator, free SEO tool" />
+  <meta name="author" content="Tanishka Gupta" />
+  <meta property="og:title" content="MetaForge – Free Meta Tag Generator" />
+  <meta property="og:description" content="Generate perfect SEO meta tags, Open Graph tags, Twitter Cards instantly. 100% free." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <span class="logo-text">Meta<span class="logo-accent">Forge</span></span>
+      </div>
+      <nav class="nav-links">
+        <a href="#generator" class="nav-link">Generator</a>
+        <a href="#preview" class="nav-link">Preview</a>
+        <a href="#about" class="nav-link">About</a>
+      </nav>
+      <a href="https://digitalheroesco.com" target="_blank" rel="noopener noreferrer" id="digital-heroes-btn" class="btn-heroes">
+        Built for Digital Heroes
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Free &amp; No Sign-Up Required
+    </div>
+    <h1 class="hero-title">
+      Generate <span class="gradient-text">Perfect Meta Tags</span><br />in Seconds
+    </h1>
+    <p class="hero-subtitle">
+      Craft SEO-optimized meta tags, Open Graph, Twitter Cards &amp; more —<br />
+      the tool every developer and marketer wishes existed.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">10+</span>
+        <span class="stat-label">Tag Types</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">0₹</span>
+        <span class="stat-label">Cost</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Accurate</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Generator -->
+  <main class="container" id="generator">
+    <div class="generator-grid">
+
+      <!-- Left: Input Panel -->
+      <div class="input-panel">
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+          <button class="tab active" data-tab="basic" id="tab-basic">Basic SEO</button>
+          <button class="tab" data-tab="og" id="tab-og">Open Graph</button>
+          <button class="tab" data-tab="twitter" id="tab-twitter">Twitter Card</button>
+          <button class="tab" data-tab="advanced" id="tab-advanced">Advanced</button>
+        </div>
+
+        <!-- Basic SEO Tab -->
+        <div class="tab-content active" id="content-basic">
+          <div class="section-header">
+            <div class="section-icon">🔍</div>
+            <div>
+              <h2 class="section-title">Basic SEO Tags</h2>
+              <p class="section-desc">Core tags that every page needs</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="page-title" class="form-label">
+              Page Title
+              <span class="char-badge" id="title-count">0 / 60</span>
+            </label>
+            <input type="text" id="page-title" class="form-input" placeholder="My Amazing Website – Brand Name" maxlength="60" />
+            <div class="progress-bar"><div class="progress-fill" id="title-progress"></div></div>
+            <p class="form-hint">Optimal: 50–60 characters. Appears in browser tab &amp; search results.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="page-desc" class="form-label">
+              Meta Description
+              <span class="char-badge" id="desc-count">0 / 160</span>
+            </label>
+            <textarea id="page-desc" class="form-textarea" placeholder="A clear, compelling description of what this page offers..." maxlength="160" rows="3"></textarea>
+            <div class="progress-bar"><div class="progress-fill" id="desc-progress"></div></div>
+            <p class="form-hint">Optimal: 150–160 characters. Shown in search result snippets.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="page-keywords" class="form-label">Keywords</label>
+            <input type="text" id="page-keywords" class="form-input" placeholder="seo, meta tags, online tool, free generator" />
+            <p class="form-hint">Comma-separated. Modern search engines give this low weight, but still useful.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="page-author" class="form-label">Author</label>
+            <input type="text" id="page-author" class="form-input" placeholder="Your Name or Company" />
+          </div>
+
+          <div class="form-group">
+            <label for="page-url" class="form-label">Canonical URL</label>
+            <input type="url" id="page-url" class="form-input" placeholder="https://yourwebsite.com/page" />
+            <p class="form-hint">Prevents duplicate content issues.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="page-lang" class="form-label">Language</label>
+            <select id="page-lang" class="form-select">
+              <option value="en">English (en)</option>
+              <option value="en-US">English US (en-US)</option>
+              <option value="en-GB">English UK (en-GB)</option>
+              <option value="hi">Hindi (hi)</option>
+              <option value="fr">French (fr)</option>
+              <option value="de">German (de)</option>
+              <option value="es">Spanish (es)</option>
+              <option value="pt">Portuguese (pt)</option>
+              <option value="ja">Japanese (ja)</option>
+              <option value="zh">Chinese (zh)</option>
+              <option value="ar">Arabic (ar)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Robots Directives</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-item">
+                <input type="checkbox" id="robot-index" checked />
+                <span class="checkbox-custom"></span>
+                <span>Index</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="robot-follow" checked />
+                <span class="checkbox-custom"></span>
+                <span>Follow</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="robot-nosnippet" />
+                <span class="checkbox-custom"></span>
+                <span>No Snippet</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="robot-noimageindex" />
+                <span class="checkbox-custom"></span>
+                <span>No Image Index</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="page-viewport" class="form-label">Viewport</label>
+            <input type="text" id="page-viewport" class="form-input" value="width=device-width, initial-scale=1.0" />
+          </div>
+        </div>
+
+        <!-- Open Graph Tab -->
+        <div class="tab-content" id="content-og">
+          <div class="section-header">
+            <div class="section-icon">📘</div>
+            <div>
+              <h2 class="section-title">Open Graph Tags</h2>
+              <p class="section-desc">How your page looks when shared on Facebook, LinkedIn &amp; more</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="og-title" class="form-label">OG Title</label>
+            <input type="text" id="og-title" class="form-input" placeholder="Leave blank to use Page Title" />
+            <p class="form-hint">Recommended: 60–90 characters</p>
+          </div>
+
+          <div class="form-group">
+            <label for="og-desc" class="form-label">OG Description</label>
+            <textarea id="og-desc" class="form-textarea" placeholder="Leave blank to use Meta Description" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="og-image" class="form-label">OG Image URL</label>
+            <input type="url" id="og-image" class="form-input" placeholder="https://yourwebsite.com/og-image.jpg" />
+            <p class="form-hint">Recommended: 1200×630px. Shown as link preview thumbnail.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="og-type" class="form-label">Content Type</label>
+            <select id="og-type" class="form-select">
+              <option value="website">Website</option>
+              <option value="article">Article</option>
+              <option value="product">Product</option>
+              <option value="profile">Profile</option>
+              <option value="video.movie">Video / Movie</option>
+              <option value="music.song">Music / Song</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="og-site-name" class="form-label">Site Name</label>
+            <input type="text" id="og-site-name" class="form-input" placeholder="Your Brand / Site Name" />
+          </div>
+
+          <div class="form-group">
+            <label for="og-locale" class="form-label">Locale</label>
+            <input type="text" id="og-locale" class="form-input" placeholder="en_US" value="en_US" />
+          </div>
+
+          <!-- Article specific -->
+          <div class="sub-section" id="article-section">
+            <div class="sub-section-title">Article Properties</div>
+            <div class="form-group">
+              <label for="og-published" class="form-label">Published Time</label>
+              <input type="datetime-local" id="og-published" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="og-modified" class="form-label">Modified Time</label>
+              <input type="datetime-local" id="og-modified" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="og-section" class="form-label">Section / Category</label>
+              <input type="text" id="og-section" class="form-input" placeholder="Technology, Business, etc." />
+            </div>
+          </div>
+        </div>
+
+        <!-- Twitter Card Tab -->
+        <div class="tab-content" id="content-twitter">
+          <div class="section-header">
+            <div class="section-icon">🐦</div>
+            <div>
+              <h2 class="section-title">Twitter / X Card</h2>
+              <p class="section-desc">Control how your link appears on Twitter/X</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tw-card" class="form-label">Card Type</label>
+            <select id="tw-card" class="form-select">
+              <option value="summary">Summary</option>
+              <option value="summary_large_image">Summary with Large Image</option>
+              <option value="app">App</option>
+              <option value="player">Player</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tw-title" class="form-label">Twitter Title</label>
+            <input type="text" id="tw-title" class="form-input" placeholder="Leave blank to use Page Title" />
+          </div>
+
+          <div class="form-group">
+            <label for="tw-desc" class="form-label">Twitter Description</label>
+            <textarea id="tw-desc" class="form-textarea" placeholder="Leave blank to use Meta Description" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="tw-image" class="form-label">Twitter Image URL</label>
+            <input type="url" id="tw-image" class="form-input" placeholder="https://yourwebsite.com/twitter-image.jpg" />
+            <p class="form-hint">Min 144×144px. For large image card: 800×418px.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="tw-site" class="form-label">Twitter @Site Handle</label>
+            <input type="text" id="tw-site" class="form-input" placeholder="@yourbrand" />
+          </div>
+
+          <div class="form-group">
+            <label for="tw-creator" class="form-label">Twitter @Creator Handle</label>
+            <input type="text" id="tw-creator" class="form-input" placeholder="@yourname" />
+          </div>
+        </div>
+
+        <!-- Advanced Tab -->
+        <div class="tab-content" id="content-advanced">
+          <div class="section-header">
+            <div class="section-icon">⚙️</div>
+            <div>
+              <h2 class="section-title">Advanced Tags</h2>
+              <p class="section-desc">Schema, geo, verification &amp; more</p>
+            </div>
+          </div>
+
+          <div class="sub-section">
+            <div class="sub-section-title">Geographic Targeting</div>
+            <div class="form-group">
+              <label for="geo-region" class="form-label">Geo Region</label>
+              <input type="text" id="geo-region" class="form-input" placeholder="IN-DL (India, Delhi)" />
+            </div>
+            <div class="form-group">
+              <label for="geo-placename" class="form-label">Place Name</label>
+              <input type="text" id="geo-placename" class="form-input" placeholder="New Delhi, India" />
+            </div>
+          </div>
+
+          <div class="sub-section">
+            <div class="sub-section-title">Search Console Verification</div>
+            <div class="form-group">
+              <label for="verify-google" class="form-label">Google Verification Code</label>
+              <input type="text" id="verify-google" class="form-input" placeholder="your-verification-code" />
+            </div>
+            <div class="form-group">
+              <label for="verify-bing" class="form-label">Bing Verification Code</label>
+              <input type="text" id="verify-bing" class="form-input" placeholder="your-bing-code" />
+            </div>
+          </div>
+
+          <div class="sub-section">
+            <div class="sub-section-title">Theme &amp; App</div>
+            <div class="form-group">
+              <label for="theme-color" class="form-label">Theme Color</label>
+              <div class="color-input-wrap">
+                <input type="color" id="theme-color-picker" class="color-picker" value="#6366f1" />
+                <input type="text" id="theme-color" class="form-input" value="#6366f1" placeholder="#6366f1" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="apple-title" class="form-label">Apple Mobile Web App Title</label>
+              <input type="text" id="apple-title" class="form-input" placeholder="App Name" />
+            </div>
+          </div>
+
+          <div class="sub-section">
+            <div class="sub-section-title">Refresh &amp; Cache</div>
+            <div class="form-group">
+              <label for="refresh-sec" class="form-label">Auto Refresh (seconds, 0 = disabled)</label>
+              <input type="number" id="refresh-sec" class="form-input" placeholder="0" min="0" />
+            </div>
+            <div class="form-group">
+              <label for="cache-control" class="form-label">Cache Control</label>
+              <select id="cache-control" class="form-select">
+                <option value="">None</option>
+                <option value="no-cache">no-cache</option>
+                <option value="no-store">no-store</option>
+                <option value="max-age=3600">max-age=3600 (1 hour)</option>
+                <option value="max-age=86400">max-age=86400 (1 day)</option>
+                <option value="max-age=604800">max-age=604800 (1 week)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generate Button -->
+        <button id="generate-btn" class="btn-generate">
+          <span class="btn-icon">⚡</span>
+          Generate Meta Tags
+          <span class="btn-shimmer"></span>
+        </button>
+
+      </div>
+
+      <!-- Right: Output Panel -->
+      <div class="output-panel" id="preview">
+
+        <!-- Live Preview -->
+        <div class="preview-card" id="serp-preview">
+          <div class="preview-label">
+            <span class="preview-dot google-dot"></span>
+            Google Search Preview
+          </div>
+          <div class="serp-result">
+            <div class="serp-url" id="prev-url">https://yourwebsite.com</div>
+            <div class="serp-title" id="prev-title">Your Page Title Here</div>
+            <div class="serp-desc" id="prev-desc">Your meta description will appear here. Make it compelling to increase click-through rates from search results.</div>
+          </div>
+        </div>
+
+        <div class="preview-card" id="og-preview-card">
+          <div class="preview-label">
+            <span class="preview-dot fb-dot"></span>
+            Social Share Preview
+          </div>
+          <div class="social-card">
+            <div class="social-img" id="prev-og-image">
+              <div class="social-img-placeholder">
+                <span>🖼️</span>
+                <small>Add OG Image URL to see preview</small>
+              </div>
+            </div>
+            <div class="social-info">
+              <div class="social-site" id="prev-og-site">yourwebsite.com</div>
+              <div class="social-title" id="prev-og-title">Your Open Graph Title</div>
+              <div class="social-desc" id="prev-og-desc">Your Open Graph description for social sharing.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output Code -->
+        <div class="output-card">
+          <div class="output-header">
+            <div class="output-title">
+              <span>Generated HTML</span>
+              <span class="tag-count" id="tag-count-badge">0 tags</span>
+            </div>
+            <div class="output-actions">
+              <button id="copy-btn" class="btn-action" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+              <button id="download-btn" class="btn-action" title="Download as HTML">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </button>
+              <button id="clear-btn" class="btn-action btn-danger" title="Clear all">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                Clear
+              </button>
+            </div>
+          </div>
+          <div class="output-area-wrap">
+            <pre class="output-area" id="output-area"><code id="output-code" class="language-html"><!-- Your generated meta tags will appear here after clicking "Generate Meta Tags" --></code></pre>
+          </div>
+        </div>
+
+        <!-- SEO Score -->
+        <div class="score-card">
+          <div class="score-header">
+            <span class="score-title">SEO Score</span>
+            <div class="score-circle">
+              <svg class="score-svg" viewBox="0 0 36 36">
+                <circle class="score-bg" cx="18" cy="18" r="15.9" />
+                <circle class="score-ring" cx="18" cy="18" r="15.9" id="score-ring" stroke-dasharray="0 100" />
+              </svg>
+              <span class="score-num" id="score-num">0</span>
+            </div>
+          </div>
+          <div class="score-items" id="score-items">
+            <div class="score-item pending">
+              <span class="score-item-icon">○</span>
+              <span>Fill in the form and generate tags to see your score</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="features-header">
+        <h2 class="features-title">Everything You Need for Perfect Meta Tags</h2>
+        <p class="features-subtitle">Stop guessing. Generate correctly the first time.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3 class="feature-name">SEO Optimized</h3>
+          <p class="feature-desc">Generate title, description, keywords, robots directives and canonical URLs following Google's best practices.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3 class="feature-name">Live SERP Preview</h3>
+          <p class="feature-desc">See exactly how your page will look in Google search results before you publish — with character counts.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3 class="feature-name">Social Cards</h3>
+          <p class="feature-desc">Full Open Graph and Twitter Card support — control your page's appearance on all social platforms.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 class="feature-name">Instant Output</h3>
+          <p class="feature-desc">Copy-paste ready HTML output. No fluff, no ads, no sign-up needed. Pure utility.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3 class="feature-name">SEO Score</h3>
+          <p class="feature-desc">Get an instant SEO health score with actionable checklist — know what's missing at a glance.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌍</div>
+          <h3 class="feature-name">Geo &amp; Verification</h3>
+          <p class="feature-desc">Add geographic targeting, Google/Bing verification codes, theme colors and more from the Advanced tab.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-card">
+        <div class="about-avatar">TG</div>
+        <div class="about-info">
+          <h2 class="about-name">Tanishka Gupta</h2>
+          <a href="mailto:tanishkagupta0205@gmail.com" class="about-email">tanishkagupta0205@gmail.com</a>
+          <p class="about-bio">
+            I built MetaForge because every time I launched a new project, I spent 20+ minutes manually writing meta tags from scratch — Googling the right formats, copy-pasting from old projects, wondering if I got the OG image dimensions right. I wished there was one clean, free tool that just did it all. So I made one.
+          </p>
+          <div class="about-tags">
+            <span class="about-tag">Developer</span>
+            <span class="about-tag">SEO Enthusiast</span>
+            <span class="about-tag">Built for Digital Heroes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo-text">Meta<span class="logo-accent">Forge</span></span>
+          <p class="footer-tagline">Free. Fast. No sign-up.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://digitalheroesco.com" target="_blank" rel="noopener noreferrer" class="footer-hero-btn">
+            Built for Digital Heroes 🚀
+          </a>
+        </div>
+        <div class="footer-credit">
+          <p>Made with ❤️ by <strong>Tanishka Gupta</strong></p>
+          <p><a href="mailto:tanishkagupta0205@gmail.com">tanishkagupta0205@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 MetaForge. Free forever. No strings attached.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <span class="toast-icon">✅</span>
+    <span id="toast-msg">Copied to clipboard!</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
