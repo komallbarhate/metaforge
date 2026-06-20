@@ -96,14 +96,11 @@ function updateHeaderUI() {
   const user = getCurrentUser();
   const authBtns = document.getElementById('auth-buttons');
   const userMenu = document.getElementById('user-menu');
-  const userNameDisplay = document.getElementById('user-name-display');
   const userAvatar = document.getElementById('user-avatar');
 
   if (user) {
     if (authBtns) authBtns.hidden = true;
     if (userMenu) userMenu.hidden = false;
-    const firstName = (user.name || user.email).split(' ')[0];
-    if (userNameDisplay) userNameDisplay.textContent = firstName;
     if (userAvatar) userAvatar.textContent = (user.name || user.email)[0].toUpperCase();
   } else {
     if (authBtns) authBtns.hidden = false;
