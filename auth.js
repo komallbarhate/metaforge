@@ -9,10 +9,9 @@
 // 2. Create an Email Template with variables: {{otp}}, {{user_name}}, {{to_email}}
 // 3. Copy your Public Key, Service ID, and Template ID below
 const EMAILJS_CONFIG = {
-  publicKey:  'YOUR_EMAILJS_PUBLIC_KEY',   // e.g. 'abc123xyz'
-  serviceId:  'YOUR_SERVICE_ID',            // e.g. 'service_xxxxxx'
-  otpTemplateId: 'YOUR_OTP_TEMPLATE_ID',   // e.g. 'template_xxxxxx'
-  tagsTemplateId: 'YOUR_TAGS_TEMPLATE_ID', // e.g. 'template_yyyyyy'
+  publicKey: '1-mrv5wBYsVdSfRO7',   // e.g. 'abc123xyz'
+  serviceId: 'service_3f68gqn',            // e.g. 'service_xxxxxx'
+  otpTemplateId: 'template_s5cj4xc',   // e.g. 'template_xxxxxx'
 };
 
 // ── OTP Store (in-memory + localStorage backup) ───────────
@@ -99,12 +98,12 @@ function updateHeaderUI() {
   const userAvatar = document.getElementById('user-avatar');
 
   if (user) {
-    if (authBtns) authBtns.hidden = true;
-    if (userMenu) userMenu.hidden = false;
+    if (authBtns) authBtns.style.display = 'none';
+    if (userMenu) userMenu.style.display = 'flex';
     if (userAvatar) userAvatar.textContent = (user.name || user.email)[0].toUpperCase();
   } else {
-    if (authBtns) authBtns.hidden = false;
-    if (userMenu) userMenu.hidden = true;
+    if (authBtns) authBtns.style.display = 'flex';
+    if (userMenu) userMenu.style.display = 'none';
   }
 }
 
@@ -147,7 +146,25 @@ async function sendOTPEmail(toEmail, userName, otp) {
   }
 }
 
-
+// ── Send Meta Tags Email ──────────────────────────────────
+async function sendTagsEmail(toEmail, tagsHTML) {
+  if (EMAILJS_CONFIG.publicKey === 'YOUR_EMAILJS_PUBLIC_KEY') {
+    console.log('📧 Tags email (EmailJS not configured)');
+    showToast('⚠️ EmailJS not configured — see console');
+    return;
+  }
+  try {
+    await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.tagsTemplateId, {
+      to_email: toEmail,
+      meta_tags: tagsHTML,
+    });
+    showToast('📧 Meta tags sent to your inbox!');
+    document.getElementById('email-modal').hidden = true;
+  } catch (err) {
+    console.error('EmailJS send error:', err);
+    setError('email-error', 'Failed to send. Check your EmailJS config.');
+  }
+}
 
 // ── Main Auth Logic ───────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -299,7 +316,35 @@ document.addEventListener('DOMContentLoaded', () => {
     showPanel('panel-success');
   });
 
+  // ── Email My Tags button ──
+  document.getElementById('email-btn')?.addEventListener('click', () => {
+    const code = document.getElementById('output-code')?.textContent;
+    if (!code || code.includes('Your generated meta tags')) {
+      showToast('⚠️ Generate your tags first!');
+      return;
+    }
+    // Pre-fill email from logged-in user
+    const user = getCurrentUser();
+    if (user) document.getElementById('email-recipient').value = user.email;
+    document.getElementById('email-modal').hidden = false;
+  });
 
+  document.getElementById('email-modal-close')?.addEventListener('click', () => {
+    document.getElementById('email-modal').hidden = true;
+  });
+  document.getElementById('email-modal')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) document.getElementById('email-modal').hidden = true;
+  });
+
+  document.getElementById('send-email-btn')?.addEventListener('click', async () => {
+    const toEmail = document.getElementById('email-recipient').value.trim();
+    if (!toEmail || !toEmail.includes('@')) return setError('email-error', 'Please enter a valid email.');
+    const tags = document.getElementById('output-code')?.textContent || '';
+    const btn = document.getElementById('send-email-btn');
+    setButtonLoading(btn, true);
+    await sendTagsEmail(toEmail, tags);
+    setButtonLoading(btn, false);
+  });
 
   // ── Enter key support ──
   document.getElementById('si-password')?.addEventListener('keydown', (e) => {
