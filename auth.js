@@ -147,25 +147,7 @@ async function sendOTPEmail(toEmail, userName, otp) {
   }
 }
 
-// ── Send Meta Tags Email ──────────────────────────────────
-async function sendTagsEmail(toEmail, tagsHTML) {
-  if (EMAILJS_CONFIG.publicKey === 'YOUR_EMAILJS_PUBLIC_KEY') {
-    console.log('📧 Tags email (EmailJS not configured)');
-    showToast('⚠️ EmailJS not configured — see console');
-    return;
-  }
-  try {
-    await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.tagsTemplateId, {
-      to_email: toEmail,
-      meta_tags: tagsHTML,
-    });
-    showToast('📧 Meta tags sent to your inbox!');
-    document.getElementById('email-modal').hidden = true;
-  } catch (err) {
-    console.error('EmailJS send error:', err);
-    setError('email-error', 'Failed to send. Check your EmailJS config.');
-  }
-}
+
 
 // ── Main Auth Logic ───────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -317,35 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showPanel('panel-success');
   });
 
-  // ── Email My Tags button ──
-  document.getElementById('email-btn')?.addEventListener('click', () => {
-    const code = document.getElementById('output-code')?.textContent;
-    if (!code || code.includes('Your generated meta tags')) {
-      showToast('⚠️ Generate your tags first!');
-      return;
-    }
-    // Pre-fill email from logged-in user
-    const user = getCurrentUser();
-    if (user) document.getElementById('email-recipient').value = user.email;
-    document.getElementById('email-modal').hidden = false;
-  });
 
-  document.getElementById('email-modal-close')?.addEventListener('click', () => {
-    document.getElementById('email-modal').hidden = true;
-  });
-  document.getElementById('email-modal')?.addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) document.getElementById('email-modal').hidden = true;
-  });
-
-  document.getElementById('send-email-btn')?.addEventListener('click', async () => {
-    const toEmail = document.getElementById('email-recipient').value.trim();
-    if (!toEmail || !toEmail.includes('@')) return setError('email-error', 'Please enter a valid email.');
-    const tags = document.getElementById('output-code')?.textContent || '';
-    const btn = document.getElementById('send-email-btn');
-    setButtonLoading(btn, true);
-    await sendTagsEmail(toEmail, tags);
-    setButtonLoading(btn, false);
-  });
 
   // ── Enter key support ──
   document.getElementById('si-password')?.addEventListener('keydown', (e) => {
