@@ -2,14 +2,16 @@
 
 A free, beautiful, and fully functional meta tag generator built for developers and marketers.
 
-**Live Tool:** [Deploy on Vercel]  
-**Built by:** Tanishka Gupta — tanishkagupta0205@gmail.com  
+**Live Tool:** [https://metaforge-rose.vercel.app/](https://metaforge-rose.vercel.app/)  
+**Built by:** Komal Barhate — barhate.komal12@gmail.com  
 **Built for:** [Digital Heroes](https://digitalheroesco.com)
 
 ---
 
 ## 🚀 Features
 
+- **Custom Authentication** — Secure frontend-only authentication system using `localStorage`.
+- **OTP Password Reset** — Built-in "Forgot Password" functionality powered by EmailJS to send real 6-digit OTP codes.
 - **Basic SEO Tags** — Title, description, keywords, author, canonical URL, robots directives, viewport
 - **Open Graph Tags** — Full OG support including article-specific fields (published time, section, etc.)
 - **Twitter / X Cards** — All card types with site & creator handles
@@ -25,8 +27,9 @@ A free, beautiful, and fully functional meta tag generator built for developers 
 ## 🛠️ Tech Stack
 
 - **HTML5** — Semantic, accessible markup
-- **CSS3** — Custom properties, glassmorphism, animations, responsive design
+- **CSS3** — Custom properties, clean UI, animations, responsive design
 - **Vanilla JavaScript** — Zero dependencies, pure DOM manipulation
+- **EmailJS** — For secure OTP email delivery
 - **Google Fonts** — Inter + JetBrains Mono
 
 ---
@@ -35,9 +38,10 @@ A free, beautiful, and fully functional meta tag generator built for developers 
 
 ```
 meta-tag/
-├── index.html      # Main HTML page
-├── style.css       # All styles (dark mode, animations, layout)
-├── app.js          # Application logic
+├── index.html      # Main HTML page & Modals
+├── style.css       # All styles (theme, animations, layout)
+├── app.js          # Generator logic and live previews
+├── auth.js         # Authentication, Session management & EmailJS logic
 ├── vercel.json     # Vercel deployment config
 └── README.md       # This file
 ```
@@ -60,7 +64,7 @@ That's it. Free forever on Vercel's Hobby plan.
 
 - [x] Tool works and gives correct output
 - [x] Button labelled "Built for Digital Heroes" → links to https://digitalheroesco.com
-- [x] Full name (Tanishka Gupta) and email (tanishkagupta0205@gmail.com) visible on page
+- [x] Full name (Komal Barhate) and email (barhate.komal12@gmail.com) visible on page
 - [x] Deployed on Vercel free plan
 - [x] Public GitHub repo
 - [x] ₹0 spent
@@ -73,4 +77,4 @@ Every time I launch a project, I waste 20+ minutes writing meta tags from scratc
 
 ---
 
-*Made with ❤️ by Tanishka Gupta for Digital Heroes*
+*Made with ❤️ by Komal Barhate for Digital Heroes*
