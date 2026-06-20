@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MetaForge – Free Meta Tag Generator | SEO & Open Graph Tags</title>
-  <meta name="description" content="Generate perfect SEO meta tags, Open Graph tags, Twitter Cards, and more in seconds. Free, fast, and no sign-up required." />
+  <meta name="description" content="Generate perfect SEO meta tags, Open Graph tags, Twitter Cards, and more in seconds. Free and fast." />
   <meta name="keywords" content="meta tag generator, SEO meta tags, open graph generator, twitter card generator, free SEO tool" />
-  <meta name="author" content="Tanishka Gupta" />
+  <meta name="author" content="Komal Barhate" />
   <meta property="og:title" content="MetaForge – Free Meta Tag Generator" />
   <meta property="og:description" content="Generate perfect SEO meta tags, Open Graph tags, Twitter Cards instantly. 100% free." />
   <meta property="og:type" content="website" />
@@ -14,6 +14,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -23,6 +25,112 @@
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ─── Auth Modal ─────────────────────────────────────── -->
+  <div class="modal-overlay" id="auth-modal" hidden>
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
+
+      <!-- Sign In Panel -->
+      <div class="auth-panel" id="panel-signin">
+        <div class="modal-logo">⚡ MetaForge</div>
+        <h2 class="modal-title">Welcome back</h2>
+        <p class="modal-sub">Sign in to your account</p>
+        <div class="form-group">
+          <label class="form-label" for="si-email">Email</label>
+          <input type="email" id="si-email" class="form-input" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="si-password">Password</label>
+          <div class="password-wrap">
+            <input type="password" id="si-password" class="form-input" placeholder="••••••••" />
+            <button class="pw-toggle" data-target="si-password" type="button">👁</button>
+          </div>
+        </div>
+        <div class="auth-error" id="si-error"></div>
+        <button class="btn-auth-submit" id="signin-btn">Sign In</button>
+        <p class="auth-switch">
+          <a href="#" id="go-forgot">Forgot password?</a>
+        </p>
+        <div class="auth-divider"><span>or</span></div>
+        <p class="auth-switch">Don't have an account? <a href="#" id="go-signup">Sign Up</a></p>
+      </div>
+
+      <!-- Sign Up Panel -->
+      <div class="auth-panel" id="panel-signup" hidden>
+        <div class="modal-logo">⚡ MetaForge</div>
+        <h2 class="modal-title">Create account</h2>
+        <p class="modal-sub">It's free, no credit card needed</p>
+        <div class="form-group">
+          <label class="form-label" for="su-name">Full Name</label>
+          <input type="text" id="su-name" class="form-input" placeholder="Komal Barhate" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="su-email">Email</label>
+          <input type="email" id="su-email" class="form-input" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="su-password">Password</label>
+          <div class="password-wrap">
+            <input type="password" id="su-password" class="form-input" placeholder="Min 6 characters" />
+            <button class="pw-toggle" data-target="su-password" type="button">👁</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="su-confirm">Confirm Password</label>
+          <input type="password" id="su-confirm" class="form-input" placeholder="Re-enter password" />
+        </div>
+        <div class="auth-error" id="su-error"></div>
+        <button class="btn-auth-submit" id="signup-btn">Create Account</button>
+        <div class="auth-divider"><span>or</span></div>
+        <p class="auth-switch">Already have an account? <a href="#" id="go-signin">Sign In</a></p>
+      </div>
+
+      <!-- Forgot Password Panel -->
+      <div class="auth-panel" id="panel-forgot" hidden>
+        <div class="modal-logo">⚡ MetaForge</div>
+        <h2 class="modal-title">Reset Password</h2>
+        <p class="modal-sub">We'll send a 6-digit OTP to your email</p>
+        <div id="forgot-step-1">
+          <div class="form-group">
+            <label class="form-label" for="fp-email">Email</label>
+            <input type="email" id="fp-email" class="form-input" placeholder="you@example.com" />
+          </div>
+          <div class="auth-error" id="fp-error"></div>
+          <button class="btn-auth-submit" id="send-otp-btn">Send OTP</button>
+        </div>
+        <div id="forgot-step-2" hidden>
+          <div class="otp-sent-msg">
+            <span>📧</span> OTP sent! Check your inbox. Valid for <strong>10 minutes</strong>.
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fp-otp">Enter OTP</label>
+            <input type="text" id="fp-otp" class="form-input otp-input" placeholder="_ _ _ _ _ _" maxlength="6" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fp-new-pw">New Password</label>
+            <div class="password-wrap">
+              <input type="password" id="fp-new-pw" class="form-input" placeholder="Min 6 characters" />
+              <button class="pw-toggle" data-target="fp-new-pw" type="button">👁</button>
+            </div>
+          </div>
+          <div class="auth-error" id="fp-otp-error"></div>
+          <button class="btn-auth-submit" id="verify-otp-btn">Reset Password</button>
+          <p class="auth-switch"><a href="#" id="resend-otp">Resend OTP</a></p>
+        </div>
+        <div class="auth-divider"><span>or</span></div>
+        <p class="auth-switch"><a href="#" id="back-to-signin">← Back to Sign In</a></p>
+      </div>
+
+      <!-- Success Panel -->
+      <div class="auth-panel" id="panel-success" hidden>
+        <div class="success-icon">✅</div>
+        <h2 class="modal-title">Password Reset!</h2>
+        <p class="modal-sub">Your password has been updated. Sign in with your new password.</p>
+        <button class="btn-auth-submit" id="success-signin-btn">Go to Sign In</button>
+      </div>
+    </div>
   </div>
 
   <!-- Header -->
@@ -37,18 +145,29 @@
         <a href="#preview" class="nav-link">Preview</a>
         <a href="#about" class="nav-link">About</a>
       </nav>
-      <a href="https://digitalheroesco.com" target="_blank" rel="noopener noreferrer" id="digital-heroes-btn" class="btn-heroes">
-        Built for Digital Heroes
-      </a>
+
+      <!-- Right: Auth + Heroes Button -->
+      <div class="header-right">
+        <!-- Shown when logged OUT -->
+        <div id="auth-buttons" class="auth-btns">
+          <button class="btn-signin" id="open-signin">Sign In</button>
+          <button class="btn-signup-header" id="open-signup">Sign Up</button>
+        </div>
+        <!-- Shown when logged IN -->
+        <div id="user-menu" class="user-menu" hidden>
+          <div class="user-avatar" id="user-avatar">K</div>
+          <span class="user-name" id="user-name-display">Komal</span>
+          <button class="btn-signout" id="signout-btn">Sign Out</button>
+        </div>
+        <a href="https://digitalheroesco.com" target="_blank" rel="noopener noreferrer" id="digital-heroes-btn" class="btn-heroes">
+          Built for Digital Heroes
+        </a>
+      </div>
     </div>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-badge">
-      <span class="badge-dot"></span>
-      Free &amp; No Sign-Up Required
-    </div>
     <h1 class="hero-title">
       Generate <span class="gradient-text">Perfect Meta Tags</span><br />in Seconds
     </h1>
@@ -98,44 +217,30 @@
               <p class="section-desc">Core tags that every page needs</p>
             </div>
           </div>
-
           <div class="form-group">
-            <label for="page-title" class="form-label">
-              Page Title
-              <span class="char-badge" id="title-count">0 / 60</span>
-            </label>
+            <label for="page-title" class="form-label">Page Title <span class="char-badge" id="title-count">0 / 60</span></label>
             <input type="text" id="page-title" class="form-input" placeholder="My Amazing Website – Brand Name" maxlength="60" />
             <div class="progress-bar"><div class="progress-fill" id="title-progress"></div></div>
             <p class="form-hint">Optimal: 50–60 characters. Appears in browser tab &amp; search results.</p>
           </div>
-
           <div class="form-group">
-            <label for="page-desc" class="form-label">
-              Meta Description
-              <span class="char-badge" id="desc-count">0 / 160</span>
-            </label>
+            <label for="page-desc" class="form-label">Meta Description <span class="char-badge" id="desc-count">0 / 160</span></label>
             <textarea id="page-desc" class="form-textarea" placeholder="A clear, compelling description of what this page offers..." maxlength="160" rows="3"></textarea>
             <div class="progress-bar"><div class="progress-fill" id="desc-progress"></div></div>
             <p class="form-hint">Optimal: 150–160 characters. Shown in search result snippets.</p>
           </div>
-
           <div class="form-group">
             <label for="page-keywords" class="form-label">Keywords</label>
             <input type="text" id="page-keywords" class="form-input" placeholder="seo, meta tags, online tool, free generator" />
-            <p class="form-hint">Comma-separated. Modern search engines give this low weight, but still useful.</p>
           </div>
-
           <div class="form-group">
             <label for="page-author" class="form-label">Author</label>
             <input type="text" id="page-author" class="form-input" placeholder="Your Name or Company" />
           </div>
-
           <div class="form-group">
             <label for="page-url" class="form-label">Canonical URL</label>
             <input type="url" id="page-url" class="form-input" placeholder="https://yourwebsite.com/page" />
-            <p class="form-hint">Prevents duplicate content issues.</p>
           </div>
-
           <div class="form-group">
             <label for="page-lang" class="form-label">Language</label>
             <select id="page-lang" class="form-select">
@@ -152,33 +257,15 @@
               <option value="ar">Arabic (ar)</option>
             </select>
           </div>
-
           <div class="form-group">
             <label class="form-label">Robots Directives</label>
             <div class="checkbox-grid">
-              <label class="checkbox-item">
-                <input type="checkbox" id="robot-index" checked />
-                <span class="checkbox-custom"></span>
-                <span>Index</span>
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" id="robot-follow" checked />
-                <span class="checkbox-custom"></span>
-                <span>Follow</span>
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" id="robot-nosnippet" />
-                <span class="checkbox-custom"></span>
-                <span>No Snippet</span>
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" id="robot-noimageindex" />
-                <span class="checkbox-custom"></span>
-                <span>No Image Index</span>
-              </label>
+              <label class="checkbox-item"><input type="checkbox" id="robot-index" checked /><span class="checkbox-custom"></span><span>Index</span></label>
+              <label class="checkbox-item"><input type="checkbox" id="robot-follow" checked /><span class="checkbox-custom"></span><span>Follow</span></label>
+              <label class="checkbox-item"><input type="checkbox" id="robot-nosnippet" /><span class="checkbox-custom"></span><span>No Snippet</span></label>
+              <label class="checkbox-item"><input type="checkbox" id="robot-noimageindex" /><span class="checkbox-custom"></span><span>No Image Index</span></label>
             </div>
           </div>
-
           <div class="form-group">
             <label for="page-viewport" class="form-label">Viewport</label>
             <input type="text" id="page-viewport" class="form-input" value="width=device-width, initial-scale=1.0" />
@@ -194,24 +281,19 @@
               <p class="section-desc">How your page looks when shared on Facebook, LinkedIn &amp; more</p>
             </div>
           </div>
-
           <div class="form-group">
             <label for="og-title" class="form-label">OG Title</label>
             <input type="text" id="og-title" class="form-input" placeholder="Leave blank to use Page Title" />
-            <p class="form-hint">Recommended: 60–90 characters</p>
           </div>
-
           <div class="form-group">
             <label for="og-desc" class="form-label">OG Description</label>
             <textarea id="og-desc" class="form-textarea" placeholder="Leave blank to use Meta Description" rows="3"></textarea>
           </div>
-
           <div class="form-group">
             <label for="og-image" class="form-label">OG Image URL</label>
             <input type="url" id="og-image" class="form-input" placeholder="https://yourwebsite.com/og-image.jpg" />
-            <p class="form-hint">Recommended: 1200×630px. Shown as link preview thumbnail.</p>
+            <p class="form-hint">Recommended: 1200×630px.</p>
           </div>
-
           <div class="form-group">
             <label for="og-type" class="form-label">Content Type</label>
             <select id="og-type" class="form-select">
@@ -223,19 +305,15 @@
               <option value="music.song">Music / Song</option>
             </select>
           </div>
-
           <div class="form-group">
             <label for="og-site-name" class="form-label">Site Name</label>
             <input type="text" id="og-site-name" class="form-input" placeholder="Your Brand / Site Name" />
           </div>
-
           <div class="form-group">
             <label for="og-locale" class="form-label">Locale</label>
             <input type="text" id="og-locale" class="form-input" placeholder="en_US" value="en_US" />
           </div>
-
-          <!-- Article specific -->
-          <div class="sub-section" id="article-section">
+          <div class="sub-section" id="article-section" style="display:none">
             <div class="sub-section-title">Article Properties</div>
             <div class="form-group">
               <label for="og-published" class="form-label">Published Time</label>
@@ -261,7 +339,6 @@
               <p class="section-desc">Control how your link appears on Twitter/X</p>
             </div>
           </div>
-
           <div class="form-group">
             <label for="tw-card" class="form-label">Card Type</label>
             <select id="tw-card" class="form-select">
@@ -271,28 +348,22 @@
               <option value="player">Player</option>
             </select>
           </div>
-
           <div class="form-group">
             <label for="tw-title" class="form-label">Twitter Title</label>
             <input type="text" id="tw-title" class="form-input" placeholder="Leave blank to use Page Title" />
           </div>
-
           <div class="form-group">
             <label for="tw-desc" class="form-label">Twitter Description</label>
             <textarea id="tw-desc" class="form-textarea" placeholder="Leave blank to use Meta Description" rows="3"></textarea>
           </div>
-
           <div class="form-group">
             <label for="tw-image" class="form-label">Twitter Image URL</label>
             <input type="url" id="tw-image" class="form-input" placeholder="https://yourwebsite.com/twitter-image.jpg" />
-            <p class="form-hint">Min 144×144px. For large image card: 800×418px.</p>
           </div>
-
           <div class="form-group">
             <label for="tw-site" class="form-label">Twitter @Site Handle</label>
             <input type="text" id="tw-site" class="form-input" placeholder="@yourbrand" />
           </div>
-
           <div class="form-group">
             <label for="tw-creator" class="form-label">Twitter @Creator Handle</label>
             <input type="text" id="tw-creator" class="form-input" placeholder="@yourname" />
@@ -308,7 +379,6 @@
               <p class="section-desc">Schema, geo, verification &amp; more</p>
             </div>
           </div>
-
           <div class="sub-section">
             <div class="sub-section-title">Geographic Targeting</div>
             <div class="form-group">
@@ -320,7 +390,6 @@
               <input type="text" id="geo-placename" class="form-input" placeholder="New Delhi, India" />
             </div>
           </div>
-
           <div class="sub-section">
             <div class="sub-section-title">Search Console Verification</div>
             <div class="form-group">
@@ -332,14 +401,13 @@
               <input type="text" id="verify-bing" class="form-input" placeholder="your-bing-code" />
             </div>
           </div>
-
           <div class="sub-section">
             <div class="sub-section-title">Theme &amp; App</div>
             <div class="form-group">
               <label for="theme-color" class="form-label">Theme Color</label>
               <div class="color-input-wrap">
-                <input type="color" id="theme-color-picker" class="color-picker" value="#6366f1" />
-                <input type="text" id="theme-color" class="form-input" value="#6366f1" placeholder="#6366f1" />
+                <input type="color" id="theme-color-picker" class="color-picker" value="#16a34a" />
+                <input type="text" id="theme-color" class="form-input" value="#16a34a" placeholder="#16a34a" />
               </div>
             </div>
             <div class="form-group">
@@ -347,7 +415,6 @@
               <input type="text" id="apple-title" class="form-input" placeholder="App Name" />
             </div>
           </div>
-
           <div class="sub-section">
             <div class="sub-section-title">Refresh &amp; Cache</div>
             <div class="form-group">
@@ -380,7 +447,6 @@
       <!-- Right: Output Panel -->
       <div class="output-panel" id="preview">
 
-        <!-- Live Preview -->
         <div class="preview-card" id="serp-preview">
           <div class="preview-label">
             <span class="preview-dot google-dot"></span>
@@ -400,10 +466,7 @@
           </div>
           <div class="social-card">
             <div class="social-img" id="prev-og-image">
-              <div class="social-img-placeholder">
-                <span>🖼️</span>
-                <small>Add OG Image URL to see preview</small>
-              </div>
+              <div class="social-img-placeholder"><span>🖼️</span><small>Add OG Image URL to see preview</small></div>
             </div>
             <div class="social-info">
               <div class="social-site" id="prev-og-site">yourwebsite.com</div>
@@ -413,7 +476,6 @@
           </div>
         </div>
 
-        <!-- Output Code -->
         <div class="output-card">
           <div class="output-header">
             <div class="output-title">
@@ -421,26 +483,29 @@
               <span class="tag-count" id="tag-count-badge">0 tags</span>
             </div>
             <div class="output-actions">
-              <button id="copy-btn" class="btn-action" title="Copy to clipboard">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <button id="copy-btn" class="btn-action">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 Copy
               </button>
-              <button id="download-btn" class="btn-action" title="Download as HTML">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <button id="download-btn" class="btn-action">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Download
               </button>
-              <button id="clear-btn" class="btn-action btn-danger" title="Clear all">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              <button id="email-btn" class="btn-action btn-email">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+                Email Me
+              </button>
+              <button id="clear-btn" class="btn-action btn-danger">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14H6L5 6"/></svg>
                 Clear
               </button>
             </div>
           </div>
           <div class="output-area-wrap">
-            <pre class="output-area" id="output-area"><code id="output-code" class="language-html"><!-- Your generated meta tags will appear here after clicking "Generate Meta Tags" --></code></pre>
+            <pre class="output-area"><code id="output-code"><!-- Your generated meta tags will appear here --></code></pre>
           </div>
         </div>
 
-        <!-- SEO Score -->
         <div class="score-card">
           <div class="score-header">
             <span class="score-title">SEO Score</span>
@@ -453,10 +518,7 @@
             </div>
           </div>
           <div class="score-items" id="score-items">
-            <div class="score-item pending">
-              <span class="score-item-icon">○</span>
-              <span>Fill in the form and generate tags to see your score</span>
-            </div>
+            <div class="score-item pending"><span class="score-item-icon">○</span><span>Fill in the form and generate tags to see your score</span></div>
           </div>
         </div>
 
@@ -472,36 +534,12 @@
         <p class="features-subtitle">Stop guessing. Generate correctly the first time.</p>
       </div>
       <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🔍</div>
-          <h3 class="feature-name">SEO Optimized</h3>
-          <p class="feature-desc">Generate title, description, keywords, robots directives and canonical URLs following Google's best practices.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <h3 class="feature-name">Live SERP Preview</h3>
-          <p class="feature-desc">See exactly how your page will look in Google search results before you publish — with character counts.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">📱</div>
-          <h3 class="feature-name">Social Cards</h3>
-          <p class="feature-desc">Full Open Graph and Twitter Card support — control your page's appearance on all social platforms.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">⚡</div>
-          <h3 class="feature-name">Instant Output</h3>
-          <p class="feature-desc">Copy-paste ready HTML output. No fluff, no ads, no sign-up needed. Pure utility.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🎯</div>
-          <h3 class="feature-name">SEO Score</h3>
-          <p class="feature-desc">Get an instant SEO health score with actionable checklist — know what's missing at a glance.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🌍</div>
-          <h3 class="feature-name">Geo &amp; Verification</h3>
-          <p class="feature-desc">Add geographic targeting, Google/Bing verification codes, theme colors and more from the Advanced tab.</p>
-        </div>
+        <div class="feature-card"><div class="feature-icon">🔍</div><h3 class="feature-name">SEO Optimized</h3><p class="feature-desc">Generate title, description, keywords, robots directives and canonical URLs following Google's best practices.</p></div>
+        <div class="feature-card"><div class="feature-icon">📊</div><h3 class="feature-name">Live SERP Preview</h3><p class="feature-desc">See exactly how your page will look in Google search results before you publish.</p></div>
+        <div class="feature-card"><div class="feature-icon">📱</div><h3 class="feature-name">Social Cards</h3><p class="feature-desc">Full Open Graph and Twitter Card support — control your page's appearance on all social platforms.</p></div>
+        <div class="feature-card"><div class="feature-icon">⚡</div><h3 class="feature-name">Instant Output</h3><p class="feature-desc">Copy-paste ready HTML output. No fluff, no ads, no sign-up needed. Pure utility.</p></div>
+        <div class="feature-card"><div class="feature-icon">🎯</div><h3 class="feature-name">SEO Score</h3><p class="feature-desc">Get an instant SEO health score with actionable checklist — know what's missing at a glance.</p></div>
+        <div class="feature-card"><div class="feature-icon">📧</div><h3 class="feature-name">Email Your Tags</h3><p class="feature-desc">Generate your tags and send them directly to your inbox — never lose your work again.</p></div>
       </div>
     </div>
   </section>
@@ -510,17 +548,17 @@
   <section class="about-section" id="about">
     <div class="container">
       <div class="about-card">
-        <div class="about-avatar">TG</div>
+        <div class="about-avatar">KB</div>
         <div class="about-info">
-          <h2 class="about-name">Tanishka Gupta</h2>
-          <a href="mailto:tanishkagupta0205@gmail.com" class="about-email">tanishkagupta0205@gmail.com</a>
+          <h2 class="about-name">Komal Barhate</h2>
+          <a href="mailto:komallbarhate@gmail.com" class="about-email">komallbarhate@gmail.com</a>
           <p class="about-bio">
-            I built MetaForge because every time I launched a new project, I spent 20+ minutes manually writing meta tags from scratch — Googling the right formats, copy-pasting from old projects, wondering if I got the OG image dimensions right. I wished there was one clean, free tool that just did it all. So I made one.
+            I built MetaForge because every time I launched a new project, I spent 20+ minutes manually writing meta tags from scratch — Googling the right formats, copy-pasting from old projects, wondering if I got the OG image dimensions right. I wanted one clean tool that generates everything correctly the first time.
           </p>
           <div class="about-tags">
             <span class="about-tag">Developer</span>
             <span class="about-tag">SEO Enthusiast</span>
-            <span class="about-tag">Built for Digital Heroes</span>
+            <span class="about-tag">Digital Marketing Heroes</span>
           </div>
         </div>
       </div>
@@ -533,30 +571,46 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <span class="logo-text">Meta<span class="logo-accent">Forge</span></span>
-          <p class="footer-tagline">Free. Fast. No sign-up.</p>
+          <p class="footer-tagline">Fast. Free. Accurate.</p>
         </div>
         <div class="footer-links">
-          <a href="https://digitalheroesco.com" target="_blank" rel="noopener noreferrer" class="footer-hero-btn">
-            Built for Digital Heroes 🚀
-          </a>
+          <a href="#generator" class="footer-link">Generator</a>
+          <a href="#preview" class="footer-link">Preview</a>
+          <a href="#about" class="footer-link">About</a>
         </div>
         <div class="footer-credit">
-          <p>Made with ❤️ by <strong>Tanishka Gupta</strong></p>
-          <p><a href="mailto:tanishkagupta0205@gmail.com">tanishkagupta0205@gmail.com</a></p>
+          <p>Made with ❤️ by <strong>Komal Barhate</strong></p>
+          <p><a href="mailto:komallbarhate@gmail.com">komallbarhate@gmail.com</a></p>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 MetaForge. Free forever. No strings attached.</p>
+        <p>&copy; 2025 MetaForge by Komal Barhate. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Toast Notification -->
-  <div class="toast" id="toast">
-    <span class="toast-icon">✅</span>
-    <span id="toast-msg">Copied to clipboard!</span>
+  <!-- Email Modal -->
+  <div class="modal-overlay" id="email-modal" hidden>
+    <div class="modal-box modal-box-sm">
+      <button class="modal-close" id="email-modal-close">✕</button>
+      <div class="modal-logo">📧 Email My Tags</div>
+      <p class="modal-sub">We'll send your generated meta tags straight to your inbox.</p>
+      <div class="form-group">
+        <label class="form-label" for="email-recipient">Your Email</label>
+        <input type="email" id="email-recipient" class="form-input" placeholder="you@example.com" />
+      </div>
+      <div class="auth-error" id="email-error"></div>
+      <button class="btn-auth-submit" id="send-email-btn">Send Tags ✉️</button>
+    </div>
   </div>
 
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <span class="toast-icon">✅</span>
+    <span id="toast-msg">Done!</span>
+  </div>
+
+  <script src="auth.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
