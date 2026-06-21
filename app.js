@@ -638,15 +638,18 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.disabled = true;
 
     try {
-      const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+      const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
       if (!response.ok) throw new Error('Network response was not ok');
-      const data = await response.json();
+      const htmlText = await response.text();
       
       const parser = new DOMParser();
-      const doc = parser.parseFromString(data.contents, 'text/html');
+      const doc = parser.parseFromString(htmlText, 'text/html');
       
       // Extract Tags
       const title = doc.querySelector('title')?.textContent || '';
+      if (!title && htmlText.includes('cloudflare') || htmlText.includes('captcha')) {
+        throw new Error('BLOCKED');
+      }
       const desc = doc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
       
       const ogTitle = doc.querySelector('meta[property="og:title"]')?.getAttribute('content') || '';
@@ -689,7 +692,11 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('✅ Tags imported successfully!');
     } catch (err) {
       console.error(err);
-      showToast('❌ Failed to fetch tags. Make sure the URL is public.', true);
+      if (err.message === 'BLOCKED') {
+        showToast('❌ Site blocks automated scrapers (e.g. GitHub, Zomato).', true);
+      } else {
+        showToast('❌ Failed to fetch tags. Make sure the URL is public.', true);
+      }
     } finally {
       btn.textContent = origText;
       btn.disabled = false;
