@@ -144,6 +144,11 @@
       <div id="projects-list" class="projects-list">
         <!-- Projects will be injected here -->
       </div>
+      <div style="margin-top: 16px; text-align: center;">
+        <button id="export-projects-btn" class="btn-auth-submit" style="background: var(--bg-section); color: var(--accent); border: 1px solid var(--border-active);">
+          📥 Export Backup (JSON)
+        </button>
+      </div>
     </div>
   </div>
 
@@ -218,6 +223,12 @@
 
       <!-- Left: Input Panel -->
       <div class="input-panel">
+
+        <!-- URL Importer -->
+        <div class="url-importer">
+          <input type="url" id="import-url" class="form-input" placeholder="https://example.com" />
+          <button id="import-btn" class="btn-import">Fetch Tags</button>
+        </div>
 
         <!-- Tab Navigation -->
         <div class="tabs">

@@ -308,6 +308,37 @@ body {
   box-shadow: var(--shadow);
 }
 
+/* ─── URL Importer ───────────────────────────────────────── */
+.url-importer {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  background: var(--bg-section);
+  border-bottom: 1px solid var(--border);
+}
+
+.url-importer .form-input {
+  margin: 0;
+  border-color: var(--border-active);
+}
+
+.btn-import {
+  flex-shrink: 0;
+  padding: 0 20px;
+  background: white;
+  border: 1.5px solid var(--border-active);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-import:hover {
+  background: var(--accent);
+  color: white;
+}
+
 /* ─── Tabs ───────────────────────────────────────────────── */
 .tabs {
   display: flex;
