@@ -96,14 +96,17 @@ function updateHeaderUI() {
   const authBtns = document.getElementById('auth-buttons');
   const userMenu = document.getElementById('user-menu');
   const userAvatar = document.getElementById('user-avatar');
+  const saveProjectBtn = document.getElementById('save-project-btn');
 
   if (user) {
     if (authBtns) authBtns.style.display = 'none';
     if (userMenu) userMenu.style.display = 'flex';
     if (userAvatar) userAvatar.textContent = (user.name || user.email)[0].toUpperCase();
+    if (saveProjectBtn) saveProjectBtn.style.display = 'inline-flex';
   } else {
     if (authBtns) authBtns.style.display = 'flex';
     if (userMenu) userMenu.style.display = 'none';
+    if (saveProjectBtn) saveProjectBtn.style.display = 'none';
   }
 }
 

@@ -477,6 +477,132 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => toast.classList.remove('show'), 2500);
   }
 
+  // ─── Projects Logic ──────────────────────────────────────
+  function getProjectsKey() {
+    const email = sessionStorage.getItem('mf_session');
+    return email ? `mf_projects_${email}` : null;
+  }
+
+  function getProjects() {
+    const key = getProjectsKey();
+    if (!key) return [];
+    return JSON.parse(localStorage.getItem(key) || '[]');
+  }
+
+  function saveProjects(projects) {
+    const key = getProjectsKey();
+    if (key) localStorage.setItem(key, JSON.stringify(projects));
+  }
+
+  function renderProjects() {
+    const list = document.getElementById('projects-list');
+    if (!list) return;
+    const projects = getProjects();
+    
+    if (projects.length === 0) {
+      list.innerHTML = `<div class="empty-projects">No projects saved yet.</div>`;
+      return;
+    }
+
+    list.innerHTML = projects.map(p => `
+      <div class="project-item">
+        <div class="project-info">
+          <div class="project-name">${htmlEscape(p.name)}</div>
+          <div class="project-date">Saved on ${p.date}</div>
+        </div>
+        <div class="project-actions">
+          <button class="btn-action load-btn" data-id="${p.id}">Load</button>
+          <button class="btn-action btn-danger delete-btn" data-id="${p.id}">Delete</button>
+        </div>
+      </div>
+    `).join('');
+
+    list.querySelectorAll('.load-btn').forEach(btn => {
+      btn.addEventListener('click', () => loadProject(parseInt(btn.dataset.id)));
+    });
+    list.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', () => deleteProject(parseInt(btn.dataset.id)));
+    });
+  }
+
+  function loadProject(id) {
+    const project = getProjects().find(p => p.id === id);
+    if (!project) return;
+    
+    const data = project.data;
+    for (const [key, value] of Object.entries(data)) {
+      const el = document.getElementById(key);
+      if (el) {
+        if (el.type === 'checkbox') {
+          el.checked = value;
+        } else {
+          el.value = value;
+        }
+      }
+    }
+    
+    // Trigger updates
+    ['page-title', 'page-desc', 'page-url', 'og-title', 'og-desc', 'og-image', 'og-site-name', 'theme-color'].forEach(id => {
+      document.getElementById(id)?.dispatchEvent(new Event('input'));
+    });
+    document.getElementById('og-type')?.dispatchEvent(new Event('change'));
+    
+    document.getElementById('projects-modal').hidden = true;
+    showToast(`📂 Loaded "${project.name}"`);
+  }
+
+  function deleteProject(id) {
+    if (!confirm('Are you sure you want to delete this project?')) return;
+    const projects = getProjects().filter(p => p.id !== id);
+    saveProjects(projects);
+    renderProjects();
+    showToast('🗑️ Project deleted');
+  }
+
+  document.getElementById('save-project-btn')?.addEventListener('click', () => {
+    const key = getProjectsKey();
+    if (!key) {
+      showToast('⚠️ Please sign in to save projects.', true);
+      return;
+    }
+
+    let defaultName = document.getElementById('page-title').value.trim();
+    if (!defaultName) defaultName = 'Untitled Project';
+
+    const name = prompt('Enter a name for this project:', defaultName);
+    if (!name) return; // cancelled
+
+    const data = {};
+    document.querySelectorAll('.form-input, .form-textarea, .form-select, input[type="checkbox"]').forEach(el => {
+      if (el.id) {
+        data[el.id] = el.type === 'checkbox' ? el.checked : el.value;
+      }
+    });
+
+    const projects = getProjects();
+    projects.push({
+      id: Date.now(),
+      name: name,
+      date: new Date().toLocaleDateString(),
+      data: data
+    });
+    saveProjects(projects);
+    showToast(`💾 Saved "${name}"`);
+  });
+
+  document.getElementById('open-projects-btn')?.addEventListener('click', () => {
+    renderProjects();
+    document.getElementById('projects-modal').hidden = false;
+  });
+
+  document.getElementById('projects-close-btn')?.addEventListener('click', () => {
+    document.getElementById('projects-modal').hidden = true;
+  });
+
+  document.getElementById('projects-modal')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) document.getElementById('projects-modal').hidden = true;
+  });
+
   // ─── Initial state ───────────────────────────────────────
   updateSERPPreview();
   updateSocialPreview();

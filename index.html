@@ -133,6 +133,20 @@
     </div>
   </div>
 
+  <!-- ─── Projects Modal ───────────────────────────────────── -->
+  <div class="modal-overlay" id="projects-modal" hidden>
+    <div class="modal-box" style="max-width: 500px;">
+      <button class="modal-close" id="projects-close-btn" aria-label="Close">✕</button>
+      <div class="modal-logo">⚡ MetaForge</div>
+      <h2 class="modal-title">My Projects</h2>
+      <p class="modal-sub">Load or manage your saved meta tags.</p>
+      
+      <div id="projects-list" class="projects-list">
+        <!-- Projects will be injected here -->
+      </div>
+    </div>
+  </div>
+
   <!-- Header -->
   <header class="header">
     <div class="header-inner">
@@ -157,6 +171,10 @@
         </div>
         <!-- Shown when logged IN -->
         <div id="user-menu" class="user-menu" hidden>
+          <button class="btn-signin" id="open-projects-btn" style="background: var(--bg-section); color: var(--accent); border: 1px solid var(--border-active);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:-3px;margin-right:4px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            My Projects
+          </button>
           <div class="user-avatar" id="user-avatar" title="Logged In">A</div>
           <button class="btn-signout" id="signout-btn">Sign Out</button>
         </div>
@@ -484,6 +502,10 @@
               <span class="tag-count" id="tag-count-badge">0 tags</span>
             </div>
             <div class="output-actions">
+              <button id="save-project-btn" class="btn-action" style="display: none; border-color: var(--accent); color: var(--accent);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Save
+              </button>
               <button id="copy-btn" class="btn-action">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 Copy

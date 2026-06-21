@@ -1263,3 +1263,61 @@ body {
 
 .footer-link:hover { color: var(--accent); }
 
+/* ─── Projects List ──────────────────────────────────────── */
+.projects-list {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.project-item:hover {
+  border-color: var(--accent);
+  background: var(--bg-white);
+  box-shadow: var(--shadow);
+}
+
+.project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.project-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.project-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.project-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.empty-projects {
+  text-align: center;
+  padding: 30px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+}
