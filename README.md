@@ -20,6 +20,7 @@ A free, beautiful, and fully functional meta tag generator built for developers 
 - **Social Share Preview** — Facebook/LinkedIn link preview with OG image support
 - **SEO Score** — Instant 0–100 health score with actionable checklist
 - **Copy & Download** — One-click copy to clipboard or download as HTML file
+- **Save to Projects** — Save your generated meta tags to local storage and load them later via the "My Projects" dashboard.
 - **Character Counters** — Real-time progress bars for title (60 chars) and description (160 chars)
 
 ---
